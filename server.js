@@ -11,6 +11,7 @@ app.use('*', function(req, res, next) {
     res.status(404).send('Route not found!')
 })
 
+// create the server and listen on port 3000
 let server = app.listen(process.env.PORT || 3000, function() {
     console.log('app running on port', server.address().port)
 })

@@ -1,9 +1,8 @@
-
-
 let express = require('express')
 let router = express.Router()
 
-// retrieve our state data
+// retrieve our state data from our data file
+// JSON is convenient if we're woking with local data
 let stateData = require('./state_fact.json')
 
 // Router looks at the request, for example '/api/minnesota'
@@ -30,13 +29,15 @@ router.get('/state-list', function(req, res, next) {
 // goal: /api/fact/stateName
 // identify the pattern
 // write one route handler which does this
-// essentially, match /fact/something
+// essentially, match /fact/something and get back a response
 router.get('/fact/:stateName', function(req, res, next) {
-    // req is all data about the request including the path "/api/fact/California"
+    // req is all data about the request including the path, i.e: "/api/fact/California"
+    // right now, the stateName's first letter is required to be uppercase
     let name = req.params.stateName
     let fact = stateData[name] // find the value associated with the key
 
     // if we don't find the state, send an error
+    // otherwise, process normally
     if (!fact) {
         return res.status(404).send('State not found!')
     } else {
